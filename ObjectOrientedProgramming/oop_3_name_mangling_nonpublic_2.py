@@ -79,7 +79,7 @@ class FactionArmy:
 
 
 if __name__ == "__main__":
-    chaos_dwarves = FactionArmy("Chaos Dwarves", 200, "Chaosw")
+    chaos_dwarves = FactionArmy("Chaos Dwarves", 200, "Chaos")
     chaos_dwarves.show_number_warriors()
     chaos_dwarves.replenishment(500)
     chaos_dwarves.losses(150)
