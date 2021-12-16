@@ -216,19 +216,6 @@ Alice Cooper	Welcome To My Nightmare	1975	Escape
 Alice Cooper	Welcome To My Nightmare	1975	Devil's Food (Alternate)
 Alice Cooper	Welcome To My Nightmare	1975	Cold Ethyl (Alternate)
 Alice Cooper	Welcome To My Nightmare	1975	The Awakening (Alternate)
-Velvet Revolver	Libertad	2007	Let It Roll
-Velvet Revolver	Libertad	2007	She Mine
-Velvet Revolver	Libertad	2007	Get Out the Door
-Velvet Revolver	Libertad	2007	She Builds Quick Machines
-Velvet Revolver	Libertad	2007	The Last Fight
-Velvet Revolver	Libertad	2007	Pills, Demons & Etc.
-Velvet Revolver	Libertad	2007	American Man
-Velvet Revolver	Libertad	2007	Mary Mary
-Velvet Revolver	Libertad	2007	Just Sixteen
-Velvet Revolver	Libertad	2007	Can't Get It Out of My Head
-Velvet Revolver	Libertad	2007	For a Brother
-Velvet Revolver	Libertad	2007	Spay
-Velvet Revolver	Libertad	2007	Gravedancer
 Alice Cooper	Hell Is	2003	Poison
 Alice Cooper	Hell Is	2003	House of Fire
 Alice Cooper	Hell Is	2003	Hell is living without you
@@ -519,6 +506,19 @@ Van Halen	1984	1984	Hot for teacher
 Van Halen	1984	1984	I'll wait
 Van Halen	1984	1984	Girl gone bad
 Van Halen	1984	1984	House of pain
+Velvet Revolver	Libertad	2007	Let It Roll
+Velvet Revolver	Libertad	2007	She Mine
+Velvet Revolver	Libertad	2007	Get Out the Door
+Velvet Revolver	Libertad	2007	She Builds Quick Machines
+Velvet Revolver	Libertad	2007	The Last Fight
+Velvet Revolver	Libertad	2007	Pills, Demons & Etc.
+Velvet Revolver	Libertad	2007	American Man
+Velvet Revolver	Libertad	2007	Mary Mary
+Velvet Revolver	Libertad	2007	Just Sixteen
+Velvet Revolver	Libertad	2007	Can't Get It Out of My Head
+Velvet Revolver	Libertad	2007	For a Brother
+Velvet Revolver	Libertad	2007	Spay
+Velvet Revolver	Libertad	2007	Gravedancer
 Velvet Underground	The Velvet Underground & Nico	1967	Sunday morning
 Velvet Underground	The Velvet Underground & Nico	1967	I'm waiting for the man
 Velvet Underground	The Velvet Underground & Nico	1967	Femme fatale

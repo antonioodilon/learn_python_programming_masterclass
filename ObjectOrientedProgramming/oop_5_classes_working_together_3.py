@@ -1,8 +1,6 @@
-# TODO: # In the future, make a project involving classes working together,
-# but with my own example
-
-# CTRL + D both albums.txt and check_file.txt and View -> Compare files
-# lets us check if both files are identical
+# Now we are going to make some changes to the code to make sure that Python
+# understands which lines of code in check_file.txt are equal to albums.txt,
+# despite them being in different lines.
 
 class Song:
     """Class to represent a song
@@ -86,87 +84,78 @@ class Artist:
         self.albums.append(album)
 
 
+def find_object(field, object_list):
+    """Check object_list to see if there is a field there with the same
+    name attribute as the item. If so, return the item"""
+    for item in object_list:
+        if item.name == field:
+            return item
+    return None
+
+
 def load_data():
     new_artist = None
     new_album = None
     artist_list = []
-
-    with open("albums.txt", "r") as album_file:
+# Remember to compare albums_original.txt with check_file_2.txt to see the differences
+    with open("albums_original.txt", "r") as album_file:
         for line in album_file:
             # Unpacking the tuple below:
             artist_field, album_field, year_field, song_field = \
                 tuple(line.strip("\n").split("\t"))
-            # Applying the strip() and split() methods to each string and unpacking
-            # as a tuple
             year_field = int(year_field)
             print(artist_field, album_field, year_field, song_field)
-            # print(type(line))
 
+        # The lines below are different from the corresponding ones in
+        # oop_5_classes_working_togeter_2.py
             if new_artist is None:
                 new_artist = Artist(artist_field)
-            elif new_artist.name != artist_field:  # If we want to add a new artist and this
-                # artist is not in the file albums.txt
-                new_artist.add_album(new_album)
                 artist_list.append(new_artist)
-                new_artist = Artist(artist_field)
-                # Creating an object using the class Artist and its attributes
+        # Retrieve the artist object if there is one. Otherwise, create a
+        # new artist object and add it to the artist list
+            elif new_artist.name != artist_field:
+                new_artist = find_object(artist_field, artist_list)
+                if new_artist is None:
+                    new_artist = Artist(artist_field)
+                    artist_list.append(new_artist)
                 new_album = None
-            # If you have any doubts about the codes above and below, take a look at the
-            # code oop_2_methods_3, on line 85 where it says warriors_chaos.show_number_warriors().
-            # Basically:
-            # FactionArmy = Artist -> The class name
-            # "Warriors of Chaos", 0, "Chaos" = artist_field -> The parameters related to the
-            # attributes. FactionArmy, in its __init__ (constructor) method has 3
-            # attributes, and thus must receive 3 parameters. Artist, on the other hand,
-            # has 1 attribute (name), and thus receives only one parameter.
-            # warriors_chaos = new_artist , and
-            # show_number_warriors() = add_album
 
-            # If we want to add a new album and this album is not present:
             if new_album is None:
                 new_album = Album(album_field, year_field, song_field)
-            elif new_album.name != album_field:
                 new_artist.add_album(new_album)
-                new_album = Album(album_field, year_field, song_field)
-                # Creating an object using the class Album and its attributes
+        # Below we retrieve the album object if there is one. Otherwise,
+        # create a new album object and add it to the artist list
+            elif new_album.name != album_field:
+                new_album = find_object(album_field, new_artist.albums)
+                if new_album is None:
+                    new_album = Album(album_field, year_field, new_artist)
+                    new_artist.add_album(new_album)
 
-            # Now adding the songs:
             new_song = Song(song_field, new_artist)
             new_album.add_song(new_song)
 
-        # Finally, we will store the last bit of data that wasn't processed
-        # in our list
-        if new_artist is not None:
-            if new_album is not None:
-                new_artist.add_album(new_album)
-            artist_list.append(new_artist)
+        # We don't need the code below anymore:
+        # if new_artist is not None:
+        #     if new_album is not None:
+        #         new_artist.add_album(new_album)
+        #     artist_list.append(new_artist)
 
     return artist_list
 
 
+# Remember to compare albums_original.txt with check_file_2.txt to see the differences
 def create_check_file(artist_list):
-    with open("check_file.txt", "w") as check_file:
+    with open("check_file_2.txt", "w") as check_file_2:
         for new_artist in artist_list:
             for new_album in new_artist.albums:
                 for new_song in new_album.tracks:
                     print("{0.name}\t{1.name}\t{1.year}\t{2.title}"
                           .format(new_artist, new_album, new_song),
-                          file=check_file)
+                          file=check_file_2)
 
 
 if __name__ == "__main__":
     artists_processed = load_data()
     print(type(artists_processed))
     print("There are {} artists".format(len(artists_processed)))
-    # for artist_name in artists_processed:
-    #     print(artist_name)
-    create_check_file(artists_processed)  # Up there we equalled the list
-    # or artists in albums.txt to the load_data() function, and called it
-    # artists_processed. So the parameter for the function create_check_file,
-    # which will print all that information on the check_file.txt file, is
-    # artists_processed
-
-# Reviewing the strip() and split() methods:
-# string1 = "This is a string, here"
-# stringstrip = tuple(string1.strip().split())
-# print(stringstrip)
+    create_check_file(artists_processed)
