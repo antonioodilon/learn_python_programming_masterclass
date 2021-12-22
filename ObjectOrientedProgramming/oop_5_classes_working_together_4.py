@@ -132,7 +132,7 @@ def find_object(field, object_list):
     """Check object_list to see if there is a field there with the same
     name attribute as the item. If so, return the item"""
     for item in object_list:
-        if item.name == field:
+        if item._name == field:
             return item
     return None
 
