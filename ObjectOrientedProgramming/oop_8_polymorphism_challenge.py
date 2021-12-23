@@ -1,16 +1,3 @@
-# Creating an HTML using inheritance and composition in Python. It is possible
-# to use both strategies when writing code.
-
-# is a = inheritance
-# For example, DocType IS A Tag, Head IS A Tag, and Body IS A Tag. This is
-# a good indication that we should use inheritance instead of composition.
-
-# has a = composition
-# For example, in the class Body there is and add_tag method that HAS A
-# reference to the Tag class (new_tag = Tag(name, contents)). This is a good
-# indication that we should use composition.
-
-
 class Tag(object):
 
     def __init__(self, name, contents):
@@ -21,8 +8,12 @@ class Tag(object):
     def __str__(self):
         return "{0.start_tag}{0.contents}{0.end_tag}".format(self)
 
-    def display(self, file=None):
-        print(self, file=file)
+    def display(self):
+        print(self)
+
+    # def _title_method(self):
+    #     titlemethod = "title", "Document title"
+    #     return titlemethod
 
 
 class DocType(Tag):
@@ -36,7 +27,20 @@ class DocType(Tag):
 class Head(Tag):
 
     def __init__(self):
-        super().__init__("head", "")
+        self._title = "Document title"
+        super().__init__("head", self._title)
+        # self._title = Tag("title", "Document title")
+
+    # def _title_method(self):
+    #     super().__init__("title", "Document title")
+
+    # def _title(self):
+    #     super().__init__("title", "Document title")
+    #     # self._title = Tag("title", "Document title")
+    #
+    # def __init__(self):  # Creating a _weapon_halberd object and assigning
+    #     # it to the Halberd class.
+    #     self._weapon_halberd = Halberd(3.5)
 
 
 class Body(Tag):
@@ -58,7 +62,7 @@ class Body(Tag):
         for tag in self._body_contents:
             self.contents += str(tag)
 
-        super().display(file=file)
+        super().display()
 
 
 # Composition doesn't mean that a class is entirely made out of other classes.
@@ -70,17 +74,18 @@ class HtmlDoc(object):
     def __init__(self):
         self._doc_type = DocType()
         self._head_ = Head()
+        # self._head._title()
         self._body_ = Body()
 
     def add_tag(self, name, contents):
         self._body_.add_tag(name, contents)
 
-    def display(self, file=None):
-        self._doc_type.display(file=file)
-        print("<html>", file=file)
-        self._head_.display(file=file)
-        self._body_.display(file=file)
-        print("</html>", file=file)
+    def display(self):
+        self._doc_type.display()
+        print("<html>")
+        self._head_.display()
+        self._body_.display()
+        print("</html>")
 
 
 if __name__ == "__main__":
@@ -88,7 +93,4 @@ if __name__ == "__main__":
     antonios_page.add_tag("h1", "Main Heading")
     antonios_page.add_tag("h2", "Sub-heading")
     antonios_page.add_tag("p", "This is a paragraph")
-    # Creating an html file that can be opened in browser:
-    with open("oop_8_html.html", "w") as oop_8_html:
-        antonios_page.display(file=oop_8_html)
-
+    antonios_page.display()
