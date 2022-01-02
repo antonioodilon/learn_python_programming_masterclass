@@ -58,12 +58,12 @@ class Account(object):
 
 
 if __name__ == "__main__":
-    # maria = Account("Maria", 200.0)
-    # maria.show_balance()
-    # maria.deposit(352.13)
-    # maria.deposit(982.67)
-    # maria.withdraw(126.09)
-    # maria.show_balance()
+    maria = Account("Maria", 200.0)
+    maria.show_balance()
+    maria.deposit(352.13)
+    maria.deposit(982.67)
+    maria.withdraw(126.09)
+    maria.show_balance()
 
     antonio = Account("Antonio", 25.0)
     antonio.deposit(400.00)
