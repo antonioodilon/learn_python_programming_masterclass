@@ -1,16 +1,30 @@
-# Now using sqlite to create a database for our account
+import datetime
+import pickle  # Added this line
+import pytz
 import sqlite3
 
-db = sqlite3.connect("accounts.sqlite")
+db = sqlite3.connect("accounts_challenge.sqlite", detect_types=sqlite3.PARSE_DECLTYPES)
 db.execute("CREATE TABLE IF NOT EXISTS accounts (name TEXT PRIMARY KEY NOT NULL,"
            " balance INTEGER NOT NULL)")
-db.execute("CREATE TABLE IF NOT EXISTS transactions(time TIMESTAMPS NOT NULL,"
-           "account TEXT NOT NULL, amount INTEGER NOT NULL, PRIMARY KEY (time,"
-           " account))")  # Notice that the primary key here is created differently
-# Can also create UNIQUE KEY
+db.execute("CREATE TABLE IF NOT EXISTS history(time TIMESTAMPS NOT NULL,"
+           "account TEXT NOT NULL, amount INTEGER NOT NULL, zone INTEGER NOT NULL, "
+           "PRIMARY KEY (time, account))")  # Added zone INTEGER NOT NULL
+db.execute("CREATE VIEW IF NOT EXISTS localhistory AS SELECT"
+           " strftime('%Y-%m-%d %H:%M:%f', history.time, 'localtime') AS"
+           " localtime, history.account, history.amount FROM history"
+           " ORDER BY history.time")
 
 
 class Account(object):
+
+    @staticmethod
+    def _current_time():
+        utc_time = pytz.utc.localize(datetime.datetime.utcnow())
+        local_time = utc_time.astimezone()
+        zone = local_time.tzinfo
+        return utc_time, zone
+        # Above lines were also added as a solution for the challenge
+        # return pytz.utc.localize(datetime.datetime.utcnow())
 
     def __init__(self, name: str, opening_balance: float = 0.0):
         cursor = db.execute("SELECT name, balance FROM accounts "
@@ -30,20 +44,30 @@ class Account(object):
 
         self.show_balance()
 
+    def _save_update(self, amount):
+        new_balance = self.balance + amount
+        deposit_time, zone = Account._current_time()  # Unpacking the returned
+        # tuple from the _current_time method
+        # deposit_time = Account._current_time()
+        pickled_zone = pickle.dumps(zone)  # Added this line as well, which
+        # transforms into binary files
+        db.execute("UPDATE accounts SET balance = ? WHERE (name = ?)",
+                   (new_balance, self.name))
+        db.execute("INSERT INTO history VALUES (?, ?, ?, ?)",
+                   (deposit_time, self.name, amount, pickled_zone))
+        db.commit()
+        self.balance = new_balance
+
     def deposit(self, money_deposited: float) -> float:
         if money_deposited > 0.0:
-            self.balance += money_deposited
+            self._save_update(money_deposited)
             print("You have deposited {0} dollars in your account and now "
                   "have {1}".format(money_deposited, self.balance))
         return self.balance
-    # Tim said that float numbers can sometimes cause problems due to the
-    # conversion from binary numbers to decimal. So sometimes it might be
-    # a good idea to use integers and then either multiply by 100 to get
-    # the cents, or divide by 100, and make changes to the program accordingly.
 
     def withdraw(self, money_withdrawn: float) -> float:
         if 0.0 < money_withdrawn <= self.balance:
-            self.balance -= money_withdrawn
+            self._save_update(-money_withdrawn)
             print("You have withdrawn {0} dollars from your account and now "
                   "have {1}".format(money_withdrawn, self.balance))
             return money_withdrawn
@@ -65,11 +89,15 @@ if __name__ == "__main__":
     maria.withdraw(126.09)
     maria.show_balance()
 
+    print("-" * 80)
+
     antonio = Account("Antonio", 25.0)
     antonio.deposit(400.00)
     antonio.withdraw(329.09)
     antonio.deposit(789.87)
     antonio.show_balance()
+
+    print("-" * 80)
 
     antoinette = Account("Antoinette", 2030.3)
     antoinette.withdraw(427.9)
@@ -77,12 +105,18 @@ if __name__ == "__main__":
     antoinette.deposit(4528.97)
     antoinette.show_balance()
 
+    print("-" * 80)
+
     adriano = Account("Adriano")
     adriano.deposit(3009.99)
     adriano.show_balance()
 
+    print("-" * 80)
+
     ionete = Account("Ionete", 530)
     ionete.show_balance()
+
+    print("-" * 80)
 
     antoine = Account("Antoine", 365.97)
     antoine.show_balance()
