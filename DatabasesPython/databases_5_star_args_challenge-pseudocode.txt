@@ -1,0 +1,27 @@
+for word in args:
+
+Neverwinter -> len: 11
+Nights -> len: 6
+is -> len: 2
+a -> len: 1
+great -> len: 5
+game -> len: 4
+
+-> each word as a length
+-> args has a length
+-> get the length of each word
+-> sum the length of all the words
+-> divide by the length of args
+
+
+
+for number in args:
+	the next number is the number that is next in the index
+	check if the number is larger than the next one
+
+10
+3
+4
+78
+90
+23
