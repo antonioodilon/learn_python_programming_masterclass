@@ -23,7 +23,7 @@ _ = input("line 22")
 
 _ = input("line 24")
 for value in small_range:
-    _ = input("line 26")
+    _ = input("line 26 - inside loop")
     print(value)
 
 print("-" * 40)
@@ -53,7 +53,7 @@ small_list = []
 
 _ = input("line 53")
 for value in small_range_2:
-    _ = input("line 55")
+    _ = input("line 55 - inside loop")
     small_list.append(value)
 
 print("small_list is {} bytes".format(sys.getsizeof(small_list)))
