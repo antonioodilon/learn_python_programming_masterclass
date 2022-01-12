@@ -36,12 +36,23 @@ exits = {0: {"Q": 0},
 list_exits = [value for key, value in locations.items() if key == 1 or key == 2]
 print(list_exits)
 
+# Tim's solution:
+loc = 1
+possible_exits = [locations[exit_f] for exit_f in exits if loc in exits[exit_f].values()]
+print(possible_exits)
+
 print("-" * 80)
 
 # My solution to the second part of the challenge:
 list_exits_2 = [(key, value) for key, value in locations.items() if key == 1 or key == 2]
 # (key, value) is now a tuple
 print(list_exits_2)
+
+# Tim's solution:
+loc = 1
+possible_exits = [(exit_f, locations[exit_f]) for exit_f in exits if
+                  loc in exits[exit_f].values()]
+print(possible_exits)
 
 print("-" * 80)
 
@@ -50,6 +61,13 @@ for key_exits, value_exits in exits.items():
     list_exits_3 = [(key, value, value_exits) for key, value in locations.items()
                     if key == key_exits]
     print(list_exits_3)
+
+# Tim's solution:
+for loc in sorted(locations):
+    possible_exits = [(exit_f, locations[exit_f]) for exit_f in exits if loc in
+              exits[exit_f].values()]
+    print("Locations leading to {}".format(loc), end='\t')
+    print(possible_exits)
 
 print("-" * 80)
 

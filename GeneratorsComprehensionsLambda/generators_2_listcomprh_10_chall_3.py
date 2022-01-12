@@ -4,6 +4,7 @@
 # From Challenge 1:
 fizzbuzz = ["fizz buzz" if x % 15 == 0 else "fizz" if x % 3 == 0 else "buzz"
             if x % 5 == 0 else str(x) for x in range(1, 51)]
+# It's better if all the items in the list are strings. Hence the str(x)
 print(fizzbuzz)
 
 print("----Converting challenge 1 to a regular for loop:----")
@@ -91,3 +92,46 @@ for key_exits_for_loop_3, value_exits_for_loop_3 in exits.items():
 
 for item in list_exits_for_loop_3:
     print(item)
+
+
+'''
+Tim's solutions are below:
+'''
+# Challenge 2:
+loc = 1
+possible_exits = [locations[exit_f] for exit_f in exits if loc in exits[exit_f].values()]
+print(possible_exits)
+
+print("Now for a regular for loop:")
+
+possible_exits_2 = []
+for exit_f in exits:
+    if loc in exits[exit_f].values():
+        possible_exits_2.append(locations[exit_f])
+print(possible_exits_2)
+
+print()
+
+loc = 1
+possible_exits = [(exit_f, locations[exit_f]) for exit_f in exits if
+                  loc in exits[exit_f].values()]
+print(possible_exits)
+
+print()
+
+for loc in sorted(locations):
+    possible_exits = [(exit_f, locations[exit_f]) for exit_f in exits if loc in
+                      exits[exit_f].values()]
+    print("Locations leading to {}".format(loc), end='\t')
+    print(possible_exits)
+
+print("Now for a regular for loop:")
+
+for loc in sorted(locations):
+    possible_exits_2 = []
+    for exit_f in exits:
+        if loc in exits[exit_f].values():
+            possible_exits_2.append((exit_f, locations[exit_f]))
+            # Two parentheses because the inner one is a tuple
+    print("Locations leading to {}".format(loc), end='\t')
+    print(possible_exits_2)
