@@ -39,7 +39,7 @@ print("-" * 80)
 # We can make our expressions as complex as we need or want:
 for meal in menu:
     print(meal, "contains chicken" if "chicken" in meal else "contains bacon"
-          if "bacon" in meal else "contains egg")
+    if "bacon" in meal else "contains egg")
     # The order is very important! Notice in the output that the first two
     # meals contain egg AND bacon, but the output was "contains bacon" instead
     # of "contains egg" (even though egg is the first item in the first meal).
@@ -50,3 +50,32 @@ for meal in menu:
 # if x == 30:
 #     expression = "thirty"
 # print(expression)
+print("-" * 80)
+
+# What we did above was just an example of an expression comprehension, but
+# it is wrong to do it that way. Bugs might occur! Let's try another approach:
+
+items = set()
+
+for meal in menu:
+    for item in meal:
+        items.add(item)
+
+print(items)  # Printing all the unique items using a set
+
+print("-" * 80)
+
+for meal in menu:
+    for item in items:
+        if item in meal:
+            print("{0} contains {1}".format(meal, item))
+            break
+
+print("-" * 80)
+
+for x in range(1, 51):
+    fizzbuzz = "fizz buzz" if x % 15 == 0 else "fizz" if x % 3 == 0 else \
+        "buzz" if x % 5 == 0 else str(x)
+    print(fizzbuzz)
+
+print("-" * 80)
